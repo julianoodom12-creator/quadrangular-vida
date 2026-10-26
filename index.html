@@ -223,18 +223,25 @@ const SUPABASE_ANON_KEY = "sb_publishable_3SAjarQ5IBNK_zHlOt1Pkg_ZQ3O0Bp0";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Carrega as fotos do banco (TABELA NOVA: fotos_igreja)
+// Carrega as fotos usando FETCH DIRETO para ignorar o cache do SDK
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
-        const { data, error } = await _supabase
-            .from('fotos_igreja') 
-            .select('*')
-            .order('created_at', { ascending: false });
+        // Forçando a leitura da tabela "fotos_igreja" via requisição HTTP direta
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/fotos_igreja?select=*&order=created_at.desc`, {
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error("Erro na API: " + response.statusText);
+        }
 
-        if (error) throw error;
+        const data = await response.json();
 
         galeria.innerHTML = '';
 
@@ -292,15 +299,21 @@ async function uploadImagem(input) {
             .from('galeria')
             .getPublicUrl(nomeArquivo);
 
-        // 3. Salva no banco de dados (TABELA NOVA: fotos_igreja)
-        const { error: dbError } = await _supabase
-            .from('fotos_igreja') 
-            .insert([{ url: urlData.publicUrl }]);
+        // 3. Salva no banco de dados via FETCH DIRETO
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/fotos_igreja`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ url: urlData.publicUrl })
+        });
 
-        if (dbError) {
-            status.innerText = "Erro na Tabela: " + dbError.message;
-            status.style.color = "#C1272D";
-            return;
+        if (!response.ok) {
+            const errText = await response.text();
+            throw new Error(errText);
         }
 
         status.innerText = "Foto enviada com sucesso!";
@@ -311,7 +324,7 @@ async function uploadImagem(input) {
 
     } catch (error) {
         console.error("Erro no upload:", error);
-        status.innerText = "Erro inesperado: " + error.message;
+        status.innerText = "Erro: " + error.message;
         status.style.color = "#C1272D";
     }
 }
