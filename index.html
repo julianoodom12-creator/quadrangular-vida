@@ -1,0 +1,126 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igreja Quadrangular Vida - Francisco Beltrão</title>
+<meta name="theme-color" content="#5b21b6">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:#f8f7ff;color:#1a1a2e;overflow-x:hidden}
+header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8px 14px;border-bottom:3px solid #7c3aed;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.hd{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo-top{display:flex;align-items:center;gap:10px}.logo-top img{width:52px;height:52px;object-fit:contain}
+.hero{background:linear-gradient(135deg,#1a1033 0%,#2d1b69 100%);color:white;text-align:center;padding:92px 16px 36px 16px}
+.hero-logo{background:white;display:inline-block;padding:16px;border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.4);margin-bottom:16px}
+.hero-logo img{width:360px;max-width:88vw;height:auto;display:block;border-radius:12px}
+.hero h1{font-size:32px;font-weight:900;line-height:.95}.hero h1 span{color:#facc15}
+.hero p{color:#c4b5fd;margin-top:8px;font-size:13px}
+.cta{background:#25D366;color:white;padding:14px 26px;border-radius:30px;font-weight:900;text-decoration:none;display:inline-block;margin-top:14px;box-shadow:0 6px 22px rgba(37,211,102,.5);font-size:15px}
+.cta-maps{background:white;color:#1a1a2e;padding:12px 22px;border-radius:30px;font-weight:900;text-decoration:none;display:inline-block;margin-top:10px;font-size:13px;margin-left:8px}
+.box{max-width:1100px;margin:auto;padding:0 16px}.sec{padding:44px 0}
+.title{text-align:center;font-size:24px;font-weight:900;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:white;border-radius:20px;padding:20px;text-align:center;border:1px solid #e9e5ff;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.ic{width:70px;height:70px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px;color:white}
+.red{background:#C1272D}.yel{background:#F7B500;color:#1a1a2e}.blu{background:#1E88E5}.pur{background:#5E2590}
+.card h3{font-size:15px;font-weight:900;margin-bottom:6px}.card p{font-size:12.5px;color:#4b5563;line-height:1.6}.card small{color:#7c3aed;font-weight:900;font-size:11px;display:block;margin-top:6px}
+.pix{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;border-radius:22px;padding:24px;text-align:center;margin:26px 0}
+.key{background:white;color:#1a1a2e;padding:14px 18px;border-radius:14px;font-weight:900;font-size:15px;display:inline-block;margin:12px 0;word-break:break-all;cursor:pointer}
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.tbtn{padding:10px 20px;border-radius:22px;border:2px solid #e9e5ff;background:white;font-weight:900;cursor:pointer;font-size:12px}
+.tbtn.active{background:#7c3aed;color:white;border-color:#7c3aed}
+.tab{display:none}.tab.active{display:block}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.gal div{background:white;border:1px solid #e9e5ff;height:130px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px}
+.form{background:white;border-radius:18px;padding:20px;border:1px solid #e9e5ff;max-width:500px;margin:auto}
+.form input,.form textarea{width:100%;padding:12px;border:2px solid #e9e5ff;border-radius:10px;margin-bottom:10px;font-family:inherit;font-size:13px}
+.form button{width:100%;background:#7c3aed;color:white;border:0;padding:13px;border-radius:10px;font-weight:900;cursor:pointer}
+footer{background:#0f0a1e;color:white;padding:30px 16px;text-align:center}
+footer p{color:#9ca3af;font-size:12.5px;line-height:1.8}
+.float-group{position:fixed;bottom:16px;right:12px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.wa-float{background:#25D366;color:white;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.55);animation:pulse 2s infinite}
+.maps-float{background:#4285F4;color:white;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;box-shadow:0 6px 24px rgba(66,133,244,.5)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hd">
+<div class="logo-top">
+<img src="logo-vida.jpg" alt="IEQ VIDA">
+<b>IEQ<br><span style="color:#7c3aed">VIDA</span></b>
+</div>
+<div style="font-size:11px;font-weight:900"><a href="#sig" style="text-decoration:none;color:#1a1a2e;margin-right:10px">SIGNIFICADO</a><a href="#pix" style="text-decoration:none;color:#7c3aed">PIX</a></div>
+</div>
+</header>
+
+<section class="hero" id="topo">
+<div class="hero-logo">
+<!-- IMAGEM OFICIAL QUE VOCÊ MANDOU - COMO ESTÁ -->
+<img src="logo-vida.jpg" alt="Igreja do Evangelho Quadrangular VIDA">
+</div>
+<h1>Igreja do Evangelho<br>Quadrangular <span>VIDA</span></h1>
+<p>Jesus Cristo é o mesmo ontem, hoje e eternamente - Hb 13:8</p>
+<div>
+<a href="https://wa.me/554699386470?text=Olá%20Igreja%20Quadrangular%20Vida%20🙏" class="cta">💬 WhatsApp (46) 99386470</a>
+<a href="https://maps.app.goo.gl/vN4Ze9XobDJ3cFmC7?g_st=aw" target="_blank" class="cta-maps">📍 Como Chegar</a>
+</div>
+</section>
+
+<section class="sec box" id="sig">
+<h2 class="title">O que significam as cores e símbolos</h2>
+<div class="grid">
+<div class="card"><div class="ic red">✝️</div><h3 style="color:#C1272D">Jesus Salva</h3><p><b>Vermelho - Cruz</b><br>Jesus morreu na cruz para nos dar perdão e salvação. Ele é nosso Salvador. Vida nova e perdão dos pecados.</p><small>📖 Romanos 10:9-10 | João 3:16</small></div>
+<div class="card"><div class="ic yel">🕊️</div><h3 style="color:#8a6500">Jesus Batiza com Espírito Santo</h3><p><b>Amarelo - Pomba</b><br>Jesus batiza com Espírito Santo e com fogo, nos dando poder, ousadia e dons espirituais para testemunhar.</p><small>📖 Atos 1:5 e 1:8 | Marcos 1:8</small></div>
+<div class="card"><div class="ic blu">🏆</div><h3 style="color:#1E88E5">Jesus Cura</h3><p><b>Azul - Cálice</b><br>Jesus levou nossas enfermidades e pelas suas feridas fomos sarados. Ele é o médico que cura hoje corpo e alma.</p><small>📖 Isaías 53:4-5 | Tiago 5:14-15 | Êxodo 15:26</small></div>
+<div class="card"><div class="ic pur">👑</div><h3 style="color:#5E2590">Jesus é o Rei que Voltará</h3><p><b>Roxo - Coroa</b><br>Jesus é Rei dos reis e voltará em glória e poder para buscar sua igreja. Maranata, ora vem Senhor Jesus!</p><small>📖 João 14:3 | Atos 1:11 | Apocalipse 22:12</small></div>
+</div>
+</section>
+
+<section class="sec" style="background:white" id="pix">
+<div class="box">
+<div class="pix">
+<h3>🙏 Dízimos e Ofertas - Contribuição</h3>
+<p style="font-size:12px;opacity:.9;margin-top:4px">Deus ama a quem dá com alegria - 2 Coríntios 9:7</p>
+<div class="key" onclick="navigator.clipboard.writeText('quadrangularvida30@gmail.com');alert('PIX copiado: quadrangularvida30@gmail.com')">quadrangularvida30@gmail.com<br><small style="font-weight:400;font-size:11px">Toque para copiar • Chave PIX E-mail</small></div><br>
+<a href="https://wa.me/554699386470?text=Enviei%20PIX%20para%20IEQ%20Vida%20🙏%20quadrangularvida30@gmail.com" style="background:white;color:#5b21b6;padding:11px 20px;border-radius:22px;font-weight:900;text-decoration:none;font-size:13px;display:inline-block">Enviar comprovante no WhatsApp</a>
+</div>
+
+<div style="border-radius:18px;overflow:hidden;border:2px solid #e9e5ff;margin-bottom:22px">
+<iframe src="https://www.google.com/maps?q=Rua+Maritaca+30+Padre+Ulrico+Francisco+Beltrão&z=17&output=embed" width="100%" height="280" style="border:0" loading="lazy"></iframe>
+</div>
+
+<div class="tabs">
+<button class="tbtn active" onclick="openTab('gTab',this)">📸 Galeria</button>
+<button class="tbtn" onclick="openTab('rTab',this)">💌 Recado / Oração</button>
+</div>
+<div id="gTab" class="tab active"><div class="gal"><div>⛪</div><div>🙏</div><div>📖</div><div>🎸</div><div>👨‍👩‍👧</div><div>❤️</div></div></div>
+<div id="rTab" class="tab"><div class="form"><h3 style="text-align:center;margin-bottom:10px">Deixe seu pedido de oração</h3><input id="n" placeholder="Seu nome"><textarea id="m" rows="4" placeholder="Pedido de oração..."></textarea><button onclick="let t=document.getElementById('n').value;let p=document.getElementById('m').value;window.open('https://wa.me/554699386470?text=Olá%20IEQ%20Vida%20🙏%0ANome:%20'+encodeURIComponent(t)+'%0APedido:%20'+encodeURIComponent(p),'_blank')">Enviar no WhatsApp 🙏</button></div></div>
+</div>
+</section>
+
+<footer>
+<b>⛪ Igreja Quadrangular Vida</b>
+<p style="margin-top:8px">
+📅 Domingo 19:30 às 20:30 | Terça 20:00 às 21:00<br>
+📍 Rua Maritaca, 30 - Bairro Padre Ulrico - Francisco Beltrão PR<br>
+CEP 85604-456 | 📞 (46) 99386470 | PIX: quadrangularvida30@gmail.com<br>
+<a href="https://maps.app.goo.gl/vN4Ze9XobDJ3cFmC7?g_st=aw" target="_blank" style="color:#facc15;font-weight:900;text-decoration:none">📍 Abrir no Google Maps</a><br><br>
+<small>© 2026 IEQ Vida - Jesus Salva, Batiza, Cura e Voltará</small>
+</p>
+</footer>
+
+<div class="float-group">
+<a href="https://maps.app.goo.gl/vN4Ze9XobDJ3cFmC7?g_st=aw" target="_blank" class="maps-float">📍</a>
+<a href="https://wa.me/554699386470" target="_blank" class="wa-float">💬</a>
+</div>
+
+<script>
+if('scrollRestoration' in history){history.scrollRestoration='manual';}
+window.addEventListener('load',()=>{window.scrollTo(0,0);setTimeout(()=>window.scrollTo(0,0),50);});
+function openTab(id,b){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');b.classList.add('active')}
+</script>
+</body>
+</html>
