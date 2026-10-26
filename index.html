@@ -195,7 +195,7 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
                     <button onclick="document.getElementById('fileInput').click()" style="background:#7c3aed; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
                         Escolher Imagem
                     </button>
-                    <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold;"></p>
+                    <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold; word-break: break-word; line-height: 1.4;"></p>
                 </div>
 
                 <div class="gal" id="galeriaReal"></div>
@@ -250,7 +250,7 @@ async function montarGaleria() {
         });
     } catch (error) {
         console.error("Erro ao carregar galeria:", error);
-        galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as fotos. Verifique se a tabela existe.</p>';
+        galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as fotos.</p>';
     }
 }
 
@@ -270,14 +270,22 @@ async function uploadImagem(input) {
     }
 
     try {
-        const nomeArquivo = "foto_" + Date.now() + "_" + file.name;
+        const nomeArquivo = "foto_" + Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "");
 
-        // 1. Upload do arquivo para o Storage
+        // 1. Upload do arquivo para o Storage (Forçando o contentType correto)
         const { data: uploadData, error: uploadError } = await _supabase.storage
             .from('galeria')
-            .upload(nomeArquivo, file);
+            .upload(nomeArquivo, file, {
+                cacheControl: '3600',
+                upsert: false,
+                contentType: file.type // <-- ISSO RESOLVE O ERRO DE MIME TYPE NO SUPABASE NOVO
+            });
 
-        if (uploadError) throw uploadError;
+        if (uploadError) {
+            status.innerText = "Erro no Storage: " + uploadError.message;
+            status.style.color = "#C1272D";
+            return;
+        }
 
         // 2. Pega a URL pública
         const { data: urlData } = _supabase.storage
@@ -289,7 +297,11 @@ async function uploadImagem(input) {
             .from('galeria')
             .insert([{ url: urlData.publicUrl }]);
 
-        if (dbError) throw dbError;
+        if (dbError) {
+            status.innerText = "Erro na Tabela: " + dbError.message;
+            status.style.color = "#C1272D";
+            return;
+        }
 
         status.innerText = "Foto enviada com sucesso!";
         status.style.color = "#25D366";
@@ -299,7 +311,7 @@ async function uploadImagem(input) {
 
     } catch (error) {
         console.error("Erro no upload:", error);
-        status.innerText = "Erro ao enviar. Verifique o Bucket e a tabela.";
+        status.innerText = "Erro inesperado: " + error.message;
         status.style.color = "#C1272D";
     }
 }
