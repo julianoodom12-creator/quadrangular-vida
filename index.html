@@ -50,7 +50,7 @@ body.rgb-mode .card, body.rgb-mode .hero-logo { background: rgba(255, 255, 255, 
 body{font-family:Arial,Helvetica,sans-serif;background:#f8f7ff;color:#1a1a2e;overflow-x:hidden;position:relative;}
 header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8px 14px;border-bottom:3px solid #7c3aed;box-shadow:0 4px 20px rgba(0,0,0,.08)}
 .hd{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;height:60px}
-.logo-top{display:flex;align-items:center;gap:10px}
+.logo-top{display:flex;align-items:center;gap:10px;cursor:pointer; user-select:none;}
 .logo-top img{width:52px;height:52px;object-fit:contain;}
 .hero{background:linear-gradient(135deg,#1a1033 0%,#2d1b69 100%);color:white;text-align:center;padding:92px 16px 36px 16px;position:relative;z-index:1;}
 .hero-logo{background:white;display:inline-flex;align-items:center;justify-content:center;width:360px;height:360px;max-width:88vw;border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.4);margin-bottom:16px;overflow:hidden;}
@@ -70,7 +70,9 @@ header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8
 .pix{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;border-radius:22px;padding:24px;text-align:center;margin:26px 0}
 .key{background:white;color:#1a1a2e;padding:14px 18px;border-radius:14px;font-weight:900;font-size:15px;display:inline-block;margin:12px 0;word-break:break-all;cursor:pointer}
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.gal div{background:white;border:1px solid #e9e5ff;height:130px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;}
+.gal div{background:white;border:1px solid #e9e5ff;height:130px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden; cursor:pointer;}
+.gal div img{width:100%;height:100%;object-fit:cover;transition: transform 0.3s;}
+.gal div:hover img{transform: scale(1.05);}
 .form{background:white;border-radius:18px;padding:20px;border:1px solid #e9e5ff;max-width:500px;margin:auto}
 .form input,.form textarea{width:100%;padding:12px;border:2px solid #e9e5ff;border-radius:10px;margin-bottom:10px;font-family:inherit;font-size:13px}
 .form button{width:100%;background:#7c3aed;color:white;border:0;padding:13px;border-radius:10px;font-weight:900;cursor:pointer}
@@ -88,6 +90,7 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .rgb-toggle.active{background:linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);background-size:200% 200%;animation:rgbBtnAnim 3s linear infinite;color:white;border-color:white;text-shadow:1px 1px 2px black}
 @keyframes rgbBtnAnim{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
+/* MODAIS GERAIS */
 .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .overlay.active{display:flex}
 .modal{background:white;border-radius:24px;width:90%;max-width:800px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:slideUp .3s ease}
@@ -98,6 +101,20 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .modal-body{padding:20px;overflow-y:auto}
 .btn-modal{background:#facc15;color:#1a1a2e;padding:10px 20px;border-radius:30px;font-weight:900;cursor:pointer;border:0;margin-top:10px;text-transform:uppercase;font-size:13px}
 .btn-modal.outline{background:transparent;border:2px solid #7c3aed;color:#7c3aed}
+
+/* VISUALIZADOR DE IMAGEM (ZOOM) */
+#imageViewer {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;
+}
+#imageViewer.active { display: flex; }
+#imageViewer img { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+#imageViewer .close-viewer { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 2001; }
+
+/* PAINEL ADMIN */
+.admin-item { display: flex; justify-content: space-between; align-items: center; background: #f8f7ff; border: 1px solid #e9e5ff; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
+.admin-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+.btn-delete { background: #C1272D; color: white; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -106,7 +123,8 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 
 <header>
 <div class="hd">
-<div class="logo-top">
+<!-- Clicar 3x na logo abre o Admin -->
+<div class="logo-top" onclick="checkAdminClicks()">
 <img src="logo-vida.jpg" alt="IEQ VIDA">
 <b>IEQ<br><span style="color:#7c3aed">VIDA</span></b>
 </div>
@@ -176,6 +194,7 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
 
 <button class="rgb-toggle" id="btnRgb" onclick="toggleRgb()">✨ Modo RGB</button>
 
+<!-- MODAL PRINCIPAL DA GALERIA -->
 <div class="overlay" id="meuModal" onclick="fecharModal(event)">
     <div class="modal" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -185,7 +204,6 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
         <div class="modal-body">
             
             <div id="conteudoGaleria" style="display:none;">
-                
                 <div style="background:#f8f7ff; border:2px dashed #7c3aed; border-radius:14px; padding:20px; text-align:center; margin-bottom:20px;">
                     <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto</h4>
                     <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImagem(this)">
@@ -194,7 +212,6 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
                     </button>
                     <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold; word-break: break-word; line-height: 1.4;"></p>
                 </div>
-
                 <div class="gal" id="galeriaReal"></div>
             </div>
 
@@ -210,22 +227,44 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
     </div>
 </div>
 
+<!-- MODAL DO PAINEL ADMIN -->
+<div class="overlay" id="adminModal" onclick="fecharAdmin(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header" style="background:#C1272D;">
+            <h3>⚙️ Painel Administrativo</h3>
+            <button class="close-btn" onclick="fecharAdmin(event)">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:13px; color:#666; margin-bottom:15px;">Selecione a foto que deseja apagar permanentemente.</p>
+            <div id="adminLista"></div>
+        </div>
+    </div>
+</div>
+
+<!-- VISUALIZADOR DE IMAGEM TELA CHEIA -->
+<div id="imageViewer" onclick="this.classList.remove('active')">
+    <span class="close-viewer">&times;</span>
+    <img id="imageViewerSrc" src="" alt="Zoom">
+</div>
+
 <!-- SUPABASE SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// CONFIGURAÇÃO DO SUPABASE NOVO (JÁ PREENCHIDO)
+// CONFIGURAÇÃO DO SUPABASE
 const SUPABASE_URL = "https://kbaxtpupbpujjplyvibu.supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_MjgtCScrBN-QLwGCzCOvvQ_OAiY9_r3";
 
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+let fotosCarregadas = [];
+
+// --- GALERIA PÚBLICA ---
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
-        // Forçando a leitura via FETCH
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -233,12 +272,10 @@ async function montarGaleria() {
             }
         });
         
-        if (!response.ok) {
-            const errText = await response.text();
-            throw new Error(errText);
-        }
-
+        if (!response.ok) throw new Error("Erro na API");
+        
         const data = await response.json();
+        fotosCarregadas = data; 
         galeria.innerHTML = '';
 
         if (!data || data.length === 0) {
@@ -248,15 +285,17 @@ async function montarGaleria() {
 
         data.forEach((item) => {
             const div = document.createElement('div');
-            div.innerHTML = `<img src="${item.url}" alt="Foto" style="width:100%; height:100%; object-fit:cover;">`;
+            // Adicionando o evento de clique para abrir o zoom
+            div.innerHTML = `<img src="${item.url}" alt="Foto" onclick="abrirZoom('${item.url}')">`;
             galeria.appendChild(div);
         });
     } catch (error) {
         console.error("Erro ao carregar galeria:", error);
-        galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px; word-break: break-all;">Erro: ${error.message}</p>`;
+        galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as fotos.</p>`;
     }
 }
 
+// --- UPLOAD ---
 async function uploadImagem(input) {
     const file = input.files[0];
     if (!file) return;
@@ -274,27 +313,14 @@ async function uploadImagem(input) {
     try {
         const nomeArquivo = "foto_" + Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "");
 
-        // Upload para o Storage
         const { data: uploadData, error: uploadError } = await _supabase.storage
             .from('galeria')
-            .upload(nomeArquivo, file, {
-                cacheControl: '3600',
-                upsert: false,
-                contentType: file.type
-            });
+            .upload(nomeArquivo, file, { cacheControl: '3600', upsert: false, contentType: file.type });
 
-        if (uploadError) {
-            status.innerText = "Erro no Storage: " + uploadError.message;
-            status.style.color = "#C1272D";
-            return;
-        }
+        if (uploadError) throw new Error(uploadError.message);
 
-        // Pega URL pública
-        const { data: urlData } = _supabase.storage
-            .from('galeria')
-            .getPublicUrl(nomeArquivo);
+        const { data: urlData } = _supabase.storage.from('galeria').getPublicUrl(nomeArquivo);
 
-        // Salva na Tabela via FETCH
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria`, {
             method: 'POST',
             headers: {
@@ -306,24 +332,20 @@ async function uploadImagem(input) {
             body: JSON.stringify({ url: urlData.publicUrl })
         });
 
-        if (!response.ok) {
-            const errText = await response.text();
-            throw new Error(errText);
-        }
+        if (!response.ok) throw new Error("Erro ao salvar no banco");
 
         status.innerText = "Foto enviada com sucesso!";
         status.style.color = "#25D366";
-        
         input.value = "";
         montarGaleria();
 
     } catch (error) {
-        console.error("Erro no upload:", error);
         status.innerText = "Erro: " + error.message;
         status.style.color = "#C1272D";
     }
 }
 
+// --- CONTROLE DO MODAL ---
 function abrirModal(tipo) {
     const overlay = document.getElementById('meuModal');
     const title = document.getElementById('modalTitle');
@@ -355,27 +377,114 @@ function fecharModal(event) {
 function enviarOracao() {
     const nome = document.getElementById('n').value;
     const pedido = document.getElementById('m').value;
-    if(!nome || !pedido) {
-        alert("Por favor, preencha seu nome e o pedido.");
-        return;
-    }
+    if(!nome || !pedido) { alert("Por favor, preencha seu nome e o pedido."); return; }
     window.open(`https://wa.me/554699386470?text=Olá%20IEQ%20Vida%20🙏%0ANome:%20${encodeURIComponent(nome)}%0APedido:%20${encodeURIComponent(pedido)}`, '_blank');
     document.getElementById('n').value = '';
     document.getElementById('m').value = '';
     fecharModal({target: {id: 'meuModal'}});
 }
 
+// --- MODO RGB ---
 function toggleRgb() {
-    const body = document.body;
+    document.body.classList.toggle('rgb-mode');
     const btn = document.getElementById('btnRgb');
-    
-    body.classList.toggle('rgb-mode');
     btn.classList.toggle('active');
+    btn.innerHTML = document.body.classList.contains('rgb-mode') ? '🛑 Desligar RGB' : '✨ Modo RGB';
+}
+
+// --- VISUALIZADOR DE IMAGEM (ZOOM) ---
+function abrirZoom(url) {
+    document.getElementById('imageViewerSrc').src = url;
+    document.getElementById('imageViewer').classList.add('active');
+}
+
+// --- SISTEMA DE ADMIN (CLIQUE 3X NA LOGO) ---
+let adminClicks = 0;
+let adminTimer;
+
+function checkAdminClicks() {
+    adminClicks++;
+    clearTimeout(adminTimer);
     
-    if (body.classList.contains('rgb-mode')) {
-        btn.innerHTML = '🛑 Desligar RGB';
-    } else {
-        btn.innerHTML = '✨ Modo RGB';
+    // Se clicar 3 vezes em menos de 1 segundo, pede a senha
+    adminTimer = setTimeout(() => { adminClicks = 0; }, 800);
+
+    if (adminClicks === 3) {
+        adminClicks = 0;
+        const senha = prompt("Acesso Restrito. Digite a senha de administrador:");
+        if (senha === "admin") { // <-- AQUI VOCÊ PODE MUDAR A SENHA
+            abrirAdmin();
+        } else if (senha !== null) {
+            alert("Senha incorreta.");
+        }
+    }
+}
+
+async function abrirAdmin() {
+    document.getElementById('adminModal').classList.add('active');
+    const lista = document.getElementById('adminLista');
+    lista.innerHTML = '<p>Carregando fotos...</p>';
+
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+        
+        const data = await response.json();
+        lista.innerHTML = '';
+
+        if (data.length === 0) {
+            lista.innerHTML = '<p>Nenhuma foto no banco.</p>';
+            return;
+        }
+
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'admin-item';
+            // Mostra a miniatura, o ID (ou final da URL) e o botão de apagar
+            div.innerHTML = `
+                <img src="${item.url}" alt="thumb">
+                <button class="btn-delete" onclick="apagarFoto(${item.id}, '${item.url}')">Apagar</button>
+            `;
+            lista.appendChild(div);
+        });
+
+    } catch (error) {
+        lista.innerHTML = '<p style="color:red">Erro ao carregar dados do banco.</p>';
+    }
+}
+
+async function apagarFoto(id, url) {
+    if (!confirm("Tem certeza que deseja apagar esta foto? Ela sumirá do site para todos.")) return;
+
+    try {
+        // 1. Apagar do Banco de Dados
+        const responseDb = await fetch(`${SUPABASE_URL}/rest/v1/galeria?id=eq.${id}`, {
+            method: 'DELETE',
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+
+        if (!responseDb.ok) throw new Error("Erro ao deletar do banco.");
+
+        // 2. Apagar do Storage (Opcional, mas limpa o espaço)
+        // Extrai o nome do arquivo da URL pública
+        const nomeArquivo = url.split('/').pop(); 
+        await _supabase.storage.from('galeria').remove([nomeArquivo]);
+
+        alert("Foto apagada com sucesso!");
+        
+        // Recarrega as listas
+        abrirAdmin(); 
+        montarGaleria(); 
+
+    } catch (error) {
+        alert("Erro ao apagar: " + error.message);
+    }
+}
+
+function fecharAdmin(event) {
+    if (event.target.id === 'adminModal' || event.target.classList.contains('close-btn')) {
+        document.getElementById('adminModal').classList.remove('active');
     }
 }
 
