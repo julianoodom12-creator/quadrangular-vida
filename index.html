@@ -229,8 +229,8 @@ async function montarGaleria() {
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
-        // Forçando a leitura da tabela "fotos_igreja" via requisição HTTP direta
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/fotos_igreja?select=*&order=created_at.desc`, {
+        // Forçando a leitura da tabela "midia_igreja"
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/midia_igreja?select=*&order=created_at.desc`, {
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
                 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -299,8 +299,8 @@ async function uploadImagem(input) {
             .from('galeria')
             .getPublicUrl(nomeArquivo);
 
-        // 3. Salva no banco de dados via FETCH DIRETO
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/fotos_igreja`, {
+        // 3. Salva no banco de dados via FETCH DIRETO na nova tabela
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/midia_igreja`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
