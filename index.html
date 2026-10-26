@@ -115,6 +115,8 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .admin-item { display: flex; justify-content: space-between; align-items: center; background: #f8f7ff; border: 1px solid #e9e5ff; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
 .admin-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
 .btn-delete { background: #C1272D; color: white; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.btn-pass { background: #facc15; color: #1a1a2e; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+#uploadAdminArea { display: none; background:#f8f7ff; border:2px dashed #7c3aed; border-radius:14px; padding:20px; text-align:center; margin-bottom:20px; }
 </style>
 </head>
 <body>
@@ -204,14 +206,6 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
         <div class="modal-body">
             
             <div id="conteudoGaleria" style="display:none;">
-                <div style="background:#f8f7ff; border:2px dashed #7c3aed; border-radius:14px; padding:20px; text-align:center; margin-bottom:20px;">
-                    <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto</h4>
-                    <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImagem(this)">
-                    <button onclick="document.getElementById('fileInput').click()" style="background:#7c3aed; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
-                        Escolher Imagem
-                    </button>
-                    <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold; word-break: break-word; line-height: 1.4;"></p>
-                </div>
                 <div class="gal" id="galeriaReal"></div>
             </div>
 
@@ -235,6 +229,20 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
             <button class="close-btn" onclick="fecharAdmin(event)">&times;</button>
         </div>
         <div class="modal-body">
+            
+            <!-- BOTÃO TROCAR SENHA -->
+            <button class="btn-pass" onclick="trocarSenha()">🔐 Trocar Senha</button>
+
+            <!-- ÁREA DE UPLOAD -->
+            <div id="uploadAdminArea">
+                <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto</h4>
+                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImagem(this)">
+                <button onclick="document.getElementById('fileInput').click()" style="background:#7c3aed; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    Escolher Imagem
+                </button>
+                <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold; word-break: break-word; line-height: 1.4;"></p>
+            </div>
+
             <p style="font-size:13px; color:#666; margin-bottom:15px;">Selecione a foto que deseja apagar permanentemente.</p>
             <div id="adminLista"></div>
         </div>
@@ -257,7 +265,27 @@ const SUPABASE_ANON_KEY = "sb_publishable_MjgtCScrBN-QLwGCzCOvvQ_OAiY9_r3";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let fotosCarregadas = [];
+// --- GERENCIAMENTO DE SENHA ---
+// Pega a senha salva no navegador ou usa "@Qi.Vida@" como padrão
+function getSenhaAtual() {
+    return localStorage.getItem('senha_admin_igreja') || '@Qi.Vida@';
+}
+
+function trocarSenha() {
+    const atual = prompt("Digite a senha ATUAL:");
+    if (atual === null) return; // Cancelou
+    
+    if (atual !== getSenhaAtual()) {
+        alert("Senha atual incorreta!");
+        return;
+    }
+
+    const nova = prompt("Digite a NOVA senha:");
+    if (nova === null || nova.trim() === "") return;
+
+    localStorage.setItem('senha_admin_igreja', nova);
+    alert("Senha alterada com sucesso! A nova senha já está valendo.");
+}
 
 // --- GALERIA PÚBLICA ---
 async function montarGaleria() {
@@ -275,7 +303,6 @@ async function montarGaleria() {
         if (!response.ok) throw new Error("Erro na API");
         
         const data = await response.json();
-        fotosCarregadas = data; 
         galeria.innerHTML = '';
 
         if (!data || data.length === 0) {
@@ -285,7 +312,6 @@ async function montarGaleria() {
 
         data.forEach((item) => {
             const div = document.createElement('div');
-            // Adicionando o evento de clique para abrir o zoom
             div.innerHTML = `<img src="${item.url}" alt="Foto" onclick="abrirZoom('${item.url}')">`;
             galeria.appendChild(div);
         });
@@ -338,6 +364,7 @@ async function uploadImagem(input) {
         status.style.color = "#25D366";
         input.value = "";
         montarGaleria();
+        abrirAdmin(); 
 
     } catch (error) {
         status.innerText = "Erro: " + error.message;
@@ -406,13 +433,14 @@ function checkAdminClicks() {
     adminClicks++;
     clearTimeout(adminTimer);
     
-    // Se clicar 3 vezes em menos de 1 segundo, pede a senha
     adminTimer = setTimeout(() => { adminClicks = 0; }, 800);
 
     if (adminClicks === 3) {
         adminClicks = 0;
         const senha = prompt("Acesso Restrito. Digite a senha de administrador:");
-        if (senha === "admin") { // <-- AQUI VOCÊ PODE MUDAR A SENHA
+        
+        // Verifica contra a senha salva
+        if (senha === getSenhaAtual()) { 
             abrirAdmin();
         } else if (senha !== null) {
             alert("Senha incorreta.");
@@ -422,6 +450,8 @@ function checkAdminClicks() {
 
 async function abrirAdmin() {
     document.getElementById('adminModal').classList.add('active');
+    document.getElementById('uploadAdminArea').style.display = 'block';
+    
     const lista = document.getElementById('adminLista');
     lista.innerHTML = '<p>Carregando fotos...</p>';
 
@@ -441,7 +471,6 @@ async function abrirAdmin() {
         data.forEach(item => {
             const div = document.createElement('div');
             div.className = 'admin-item';
-            // Mostra a miniatura, o ID (ou final da URL) e o botão de apagar
             div.innerHTML = `
                 <img src="${item.url}" alt="thumb">
                 <button class="btn-delete" onclick="apagarFoto(${item.id}, '${item.url}')">Apagar</button>
@@ -458,7 +487,6 @@ async function apagarFoto(id, url) {
     if (!confirm("Tem certeza que deseja apagar esta foto? Ela sumirá do site para todos.")) return;
 
     try {
-        // 1. Apagar do Banco de Dados
         const responseDb = await fetch(`${SUPABASE_URL}/rest/v1/galeria?id=eq.${id}`, {
             method: 'DELETE',
             headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
@@ -466,14 +494,10 @@ async function apagarFoto(id, url) {
 
         if (!responseDb.ok) throw new Error("Erro ao deletar do banco.");
 
-        // 2. Apagar do Storage (Opcional, mas limpa o espaço)
-        // Extrai o nome do arquivo da URL pública
         const nomeArquivo = url.split('/').pop(); 
         await _supabase.storage.from('galeria').remove([nomeArquivo]);
 
         alert("Foto apagada com sucesso!");
-        
-        // Recarrega as listas
         abrirAdmin(); 
         montarGaleria(); 
 
