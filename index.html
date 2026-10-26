@@ -223,14 +223,14 @@ const SUPABASE_ANON_KEY = "sb_publishable_3SAjarQ5IBNK_zHlOt1Pkg_ZQ3O0Bp0";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Carrega as fotos do banco
+// Carrega as fotos do banco (TABELA NOVA: fotos_igreja)
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
         const { data, error } = await _supabase
-            .from('galeria')
+            .from('fotos_igreja') 
             .select('*')
             .order('created_at', { ascending: false });
 
@@ -272,13 +272,13 @@ async function uploadImagem(input) {
     try {
         const nomeArquivo = "foto_" + Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "");
 
-        // 1. Upload do arquivo para o Storage (Forçando o contentType correto)
+        // 1. Upload do arquivo para o Storage
         const { data: uploadData, error: uploadError } = await _supabase.storage
             .from('galeria')
             .upload(nomeArquivo, file, {
                 cacheControl: '3600',
                 upsert: false,
-                contentType: file.type // <-- ISSO RESOLVE O ERRO DE MIME TYPE NO SUPABASE NOVO
+                contentType: file.type
             });
 
         if (uploadError) {
@@ -292,9 +292,9 @@ async function uploadImagem(input) {
             .from('galeria')
             .getPublicUrl(nomeArquivo);
 
-        // 3. Salva no banco de dados (tabela 'galeria')
+        // 3. Salva no banco de dados (TABELA NOVA: fotos_igreja)
         const { error: dbError } = await _supabase
-            .from('galeria')
+            .from('fotos_igreja') 
             .insert([{ url: urlData.publicUrl }]);
 
         if (dbError) {
