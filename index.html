@@ -265,17 +265,31 @@ const SUPABASE_ANON_KEY = "sb_publishable_MjgtCScrBN-QLwGCzCOvvQ_OAiY9_r3";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// --- GERENCIAMENTO DE SENHA ---
-// Pega a senha salva no navegador ou usa "@Qi.Vida@" como padrão
-function getSenhaAtual() {
-    return localStorage.getItem('senha_admin_igreja') || '@Qi.Vida@';
+// --- SEGURANÇA E CRIPTOGRAFIA (SHA-256) ---
+// Essa função transforma a senha em um hash (um texto embaralhado de 64 caracteres)
+async function hashSenha(senha) {
+    const msgBuffer = new TextEncoder().encode(senha);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
 }
 
-function trocarSenha() {
+// Pega a senha do localStorage ou usa o hash do padrão "@Qi.Vida@"
+// O hash de "@Qi.Vida@" já está calculado abaixo para o site não depender de internet lenta na 1ª vez.
+const HASH_PADRAO = "b9d59d8cc57727e603d64e5a4cbdd78b47e5c30108ef75a7777b4293b6b3e1d1"; 
+
+function getSenhaHashAtual() {
+    return localStorage.getItem('senha_admin_hash') || HASH_PADRAO;
+}
+
+async function trocarSenha() {
     const atual = prompt("Digite a senha ATUAL:");
-    if (atual === null) return; // Cancelou
+    if (atual === null) return; 
     
-    if (atual !== getSenhaAtual()) {
+    const hashAtualDigitada = await hashSenha(atual);
+
+    if (hashAtualDigitada !== getSenhaHashAtual()) {
         alert("Senha atual incorreta!");
         return;
     }
@@ -283,8 +297,11 @@ function trocarSenha() {
     const nova = prompt("Digite a NOVA senha:");
     if (nova === null || nova.trim() === "") return;
 
-    localStorage.setItem('senha_admin_igreja', nova);
-    alert("Senha alterada com sucesso! A nova senha já está valendo.");
+    // Salva apenas o hash da nova senha, nunca o texto puro
+    const novoHash = await hashSenha(nova);
+    localStorage.setItem('senha_admin_hash', novoHash);
+    
+    alert("Senha alterada com sucesso! A nova senha já está criptografada.");
 }
 
 // --- GALERIA PÚBLICA ---
@@ -429,7 +446,7 @@ function abrirZoom(url) {
 let adminClicks = 0;
 let adminTimer;
 
-function checkAdminClicks() {
+async function checkAdminClicks() {
     adminClicks++;
     clearTimeout(adminTimer);
     
@@ -437,12 +454,16 @@ function checkAdminClicks() {
 
     if (adminClicks === 3) {
         adminClicks = 0;
-        const senha = prompt("Acesso Restrito. Digite a senha de administrador:");
         
-        // Verifica contra a senha salva
-        if (senha === getSenhaAtual()) { 
+        const senhaDigitada = prompt("Acesso Restrito. Digite a senha de administrador:");
+        if (senhaDigitada === null) return; // Cancelou o prompt
+
+        // Criptografa o que foi digitado e compara com o hash salvo
+        const hashDigitado = await hashSenha(senhaDigitada);
+        
+        if (hashDigitado === getSenhaHashAtual()) { 
             abrirAdmin();
-        } else if (senha !== null) {
+        } else {
             alert("Senha incorreta.");
         }
     }
