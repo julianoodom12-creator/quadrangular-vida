@@ -44,7 +44,6 @@ body.rgb-mode .logo-top b span {
     animation: rgbText 2s linear infinite alternate;
 }
 
-/* Seções ficam levemente transparentes no modo RGB para o fundo aparecer */
 body.rgb-mode .sec, body.rgb-mode .form { background: rgba(255, 255, 255, 0.85) !important; backdrop-filter: blur(8px); }
 body.rgb-mode .card, body.rgb-mode .hero-logo { background: rgba(255, 255, 255, 0.95); }
 
@@ -84,7 +83,6 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .maps-float{background:#4285F4;color:white;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;text-decoration:none;box-shadow:0 6px 24px rgba(66,133,244,.5)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 
-/* BOTÃO RGB */
 .rgb-toggle{position:fixed;bottom:16px;left:12px;z-index:999;background:#1a1a2e;color:white;border:2px solid #7c3aed;border-radius:30px;padding:10px 16px;font-weight:900;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s}
 .rgb-toggle:hover{background:#7c3aed;color:white}
 .rgb-toggle.active{background:linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);background-size:200% 200%;animation:rgbBtnAnim 3s linear infinite;color:white;border-color:white;text-shadow:1px 1px 2px black}
@@ -104,7 +102,6 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 </head>
 <body>
 
-<!-- DIV DO FUNDO RGB -->
 <div id="rgb-bg"></div>
 
 <header>
@@ -216,20 +213,20 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
 <!-- SUPABASE SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// CONFIGURAÇÃO DO SUPABASE
-const SUPABASE_URL = "https://ctnzjuyplpkirpqdtnol.supabase.co"; 
-const SUPABASE_ANON_KEY = "sb_publishable_3SAjarQ5IBNK_zHlOt1Pkg_ZQ3O0Bp0";
+// CONFIGURAÇÃO DO SUPABASE NOVO (JÁ PREENCHIDO)
+const SUPABASE_URL = "https://kbaxtpupbpujjplyvibu.supabase.co"; 
+const SUPABASE_ANON_KEY = "sb_publishable_MjgtCScrBN-QLwGCzCOvvQ_OAiY9_r3";
 
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Carrega as fotos e MOSTRA O ERRO REAL se falhar
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria_fotos?select=*&order=created_at.desc`, {
+        // Forçando a leitura via FETCH
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
                 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -242,7 +239,6 @@ async function montarGaleria() {
         }
 
         const data = await response.json();
-
         galeria.innerHTML = '';
 
         if (!data || data.length === 0) {
@@ -257,12 +253,10 @@ async function montarGaleria() {
         });
     } catch (error) {
         console.error("Erro ao carregar galeria:", error);
-        // AQUI ESTÁ A MUDANÇA: Agora o erro real aparece na tela
         galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px; word-break: break-all;">Erro: ${error.message}</p>`;
     }
 }
 
-// Faz o upload da imagem
 async function uploadImagem(input) {
     const file = input.files[0];
     if (!file) return;
@@ -280,7 +274,7 @@ async function uploadImagem(input) {
     try {
         const nomeArquivo = "foto_" + Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "");
 
-        // 1. Upload do arquivo para o Storage
+        // Upload para o Storage
         const { data: uploadData, error: uploadError } = await _supabase.storage
             .from('galeria')
             .upload(nomeArquivo, file, {
@@ -295,13 +289,13 @@ async function uploadImagem(input) {
             return;
         }
 
-        // 2. Pega a URL pública
+        // Pega URL pública
         const { data: urlData } = _supabase.storage
             .from('galeria')
             .getPublicUrl(nomeArquivo);
 
-        // 3. Salva no banco de dados via FETCH DIRETO
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria_fotos`, {
+        // Salva na Tabela via FETCH
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria`, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -330,9 +324,6 @@ async function uploadImagem(input) {
     }
 }
 
-// ---------------------------------------------------------
-// CONTROLE DO MODAL
-// ---------------------------------------------------------
 function abrirModal(tipo) {
     const overlay = document.getElementById('meuModal');
     const title = document.getElementById('modalTitle');
@@ -374,9 +365,6 @@ function enviarOracao() {
     fecharModal({target: {id: 'meuModal'}});
 }
 
-// ---------------------------------------------------------
-// CONTROLE DO MODO RGB
-// ---------------------------------------------------------
 function toggleRgb() {
     const body = document.body;
     const btn = document.getElementById('btnRgb');
