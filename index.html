@@ -223,13 +223,12 @@ const SUPABASE_ANON_KEY = "sb_publishable_3SAjarQ5IBNK_zHlOt1Pkg_ZQ3O0Bp0";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Carrega as fotos usando FETCH DIRETO para ignorar o cache do SDK
+// Carrega as fotos e MOSTRA O ERRO REAL se falhar
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
     galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
 
     try {
-        // Forçando a leitura da tabela "galeria_fotos"
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria_fotos?select=*&order=created_at.desc`, {
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -238,7 +237,8 @@ async function montarGaleria() {
         });
         
         if (!response.ok) {
-            throw new Error("Erro na API: " + response.statusText);
+            const errText = await response.text();
+            throw new Error(errText);
         }
 
         const data = await response.json();
@@ -257,7 +257,8 @@ async function montarGaleria() {
         });
     } catch (error) {
         console.error("Erro ao carregar galeria:", error);
-        galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as fotos.</p>';
+        // AQUI ESTÁ A MUDANÇA: Agora o erro real aparece na tela
+        galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px; word-break: break-all;">Erro: ${error.message}</p>`;
     }
 }
 
@@ -299,7 +300,7 @@ async function uploadImagem(input) {
             .from('galeria')
             .getPublicUrl(nomeArquivo);
 
-        // 3. Salva no banco de dados via FETCH DIRETO na tabela "galeria_fotos"
+        // 3. Salva no banco de dados via FETCH DIRETO
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria_fotos`, {
             method: 'POST',
             headers: {
