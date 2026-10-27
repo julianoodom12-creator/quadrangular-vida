@@ -12,22 +12,14 @@
 
 /* --- FUNDO RGB --- */
 #rgb-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; opacity: 0; transition: opacity 0.5s;
     background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
     background-size: 400% 400%;
 }
-body.rgb-mode #rgb-bg {
-    opacity: 1;
-    animation: gradientMove 8s ease infinite;
-}
+body.rgb-mode #rgb-bg { opacity: 1; animation: gradientMove 8s ease infinite; }
 @keyframes gradientMove {
-    0% {background-position: 0% 50%}
-    50% {background-position: 100% 50%}
-    100% {background-position: 0% 50%}
+    0% {background-position: 0% 50%} 50% {background-position: 100% 50%} 100% {background-position: 0% 50%}
 }
 
 /* --- LETRAS PULSANTES RGB --- */
@@ -39,9 +31,10 @@ body.rgb-mode #rgb-bg {
     80% { color: #0000ff; text-shadow: 0 0 10px #0000ff; }
     100% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
 }
-body.rgb-mode .hero h1 span,
-body.rgb-mode .logo-top b span {
-    animation: rgbText 2s linear infinite alternate;
+body.rgb-mode .rgb-text, 
+body.rgb-mode .hero h1 span, 
+body.rgb-mode .logo-top b span { 
+    animation: rgbText 2s linear infinite alternate; 
 }
 
 body.rgb-mode .sec, body.rgb-mode .form { background: rgba(255, 255, 255, 0.85) !important; backdrop-filter: blur(8px); }
@@ -54,29 +47,13 @@ header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8
 .logo-top img{width:52px;height:52px;object-fit:contain;}
 
 .hero{background:linear-gradient(135deg,#1a1033 0%,#2d1b69 100%);color:white;text-align:center;padding:92px 16px 36px 16px;position:relative;z-index:1;}
-
-/* QUADRADO PERFEITO DA LOGO */
 .hero-logo {
-    background: white; 
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center;
-    width: 360px; 
-    height: 360px; 
-    max-width: 88vw;
-    max-height: 88vw; 
-    padding: 16px; 
-    border-radius: 22px; 
-    box-shadow: 0 14px 40px rgba(0,0,0,.4); 
-    margin-bottom: 16px;
-    overflow: hidden;
+    background: white; display: inline-flex; align-items: center; justify-content: center;
+    width: 360px; height: 360px; max-width: 88vw; max-height: 88vw; 
+    padding: 16px; border-radius: 22px; box-shadow: 0 14px 40px rgba(0,0,0,.4); 
+    margin-bottom: 16px; overflow: hidden;
 }
-.hero-logo img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-    border-radius: 12px;
-}
+.hero-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
 
 .hero h1{font-size:32px;font-weight:900;line-height:.95}.hero h1 span{color:#facc15}
 .hero p{color:#c4b5fd;margin-top:8px;font-size:13px}
@@ -90,12 +67,15 @@ header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8
 .ic{width:70px;height:70px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px;color:white}
 .red{background:#C1272D}.yel{background:#F7B500;color:#1a1a2e}.blu{background:#1E88E5}.pur{background:#5E2590}
 .card h3{font-size:15px;font-weight:900;margin-bottom:6px}.card p{font-size:12.5px;color:#4b5563;line-height:1.6}.card small{color:#7c3aed;font-weight:900;font-size:11px;display:block;margin-top:6px}
+.card .bible-link{display:inline-block; margin-top:10px; font-size:11px; font-weight:bold; color:#7c3aed; text-decoration:none; border:1px solid #7c3aed; padding:4px 10px; border-radius:20px; cursor:pointer; transition:0.3s;}
+.card .bible-link:hover{background:#7c3aed; color:white;}
 .pix{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;border-radius:22px;padding:24px;text-align:center;margin:26px 0}
 .key{background:white;color:#1a1a2e;padding:14px 18px;border-radius:14px;font-weight:900;font-size:15px;display:inline-block;margin:12px 0;word-break:break-all;cursor:pointer}
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.gal div{background:white;border:1px solid #e9e5ff;height:130px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden; cursor:pointer;}
+.gal div{background:white;border:1px solid #e9e5ff;height:130px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden; cursor:pointer; position:relative;}
 .gal div img{width:100%;height:100%;object-fit:cover;transition: transform 0.3s;}
 .gal div:hover img{transform: scale(1.05);}
+.video-icon { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:white; font-size:40px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); pointer-events:none; }
 .form{background:white;border-radius:18px;padding:20px;border:1px solid #e9e5ff;max-width:500px;margin:auto}
 .form input,.form textarea{width:100%;padding:12px;border:2px solid #e9e5ff;border-radius:10px;margin-bottom:10px;font-family:inherit;font-size:13px}
 .form button{width:100%;background:#7c3aed;color:white;border:0;padding:13px;border-radius:10px;font-weight:900;cursor:pointer}
@@ -108,10 +88,19 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .maps-float{background:#4285F4;color:white;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;text-decoration:none;box-shadow:0 6px 24px rgba(66,133,244,.5)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 
-.rgb-toggle{position:fixed;bottom:16px;left:12px;z-index:999;background:#1a1a2e;color:white;border:2px solid #7c3aed;border-radius:30px;padding:10px 16px;font-weight:900;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s}
-.rgb-toggle:hover{background:#7c3aed;color:white}
+.left-buttons{position:fixed;bottom:16px;left:12px;z-index:999;display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+.rgb-toggle, .xmas-toggle{background:#1a1a2e;color:white;border:2px solid #7c3aed;border-radius:30px;padding:10px 16px;font-weight:900;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s}
+.rgb-toggle:hover, .xmas-toggle:hover{background:#7c3aed;color:white}
 .rgb-toggle.active{background:linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);background-size:200% 200%;animation:rgbBtnAnim 3s linear infinite;color:white;border-color:white;text-shadow:1px 1px 2px black}
 @keyframes rgbBtnAnim{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.xmas-toggle.active{background:#C1272D;color:white;border-color:white;}
+
+/* --- NEVE DE NATAL RGB --- */
+#xmas-snow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 998; display: none; overflow: hidden; }
+body.xmas-mode #xmas-snow { display: block; }
+.snowflake { position: absolute; top: -50px; animation: fall linear forwards; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8)); }
+@keyframes rgbIcone { 0% { filter: hue-rotate(0deg) brightness(1.2); } 100% { filter: hue-rotate(360deg) brightness(1.5); } }
+@keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; } }
 
 /* MODAIS GERAIS */
 .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
@@ -125,34 +114,38 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .btn-modal{background:#facc15;color:#1a1a2e;padding:10px 20px;border-radius:30px;font-weight:900;cursor:pointer;border:0;margin-top:10px;text-transform:uppercase;font-size:13px}
 .btn-modal.outline{background:transparent;border:2px solid #7c3aed;color:#7c3aed}
 
-/* VISUALIZADOR DE IMAGEM (ZOOM) */
-#imageViewer {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;
-}
+#imageViewer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; }
 #imageViewer.active { display: flex; }
 #imageViewer img { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+#imageViewer iframe { width: 90%; height: 80%; max-width: 1000px; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); border:none; }
 #imageViewer .close-viewer { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 2001; }
 
-/* PAINEL ADMIN */
 .admin-item { display: flex; justify-content: space-between; align-items: center; background: #f8f7ff; border: 1px solid #e9e5ff; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
 .admin-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
 .btn-delete { background: #C1272D; color: white; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 #uploadAdminArea { display: none; background:#f8f7ff; border:2px dashed #7c3aed; border-radius:14px; padding:20px; text-align:center; margin-bottom:20px; }
+
+/* MODAL DA BÍBLIA */
+#bibleModal .modal { max-width: 1000px; height: 90vh; }
+#bibleModal iframe { width: 100%; height: 100%; border: none; border-radius: 0 0 24px 24px; }
 </style>
 </head>
 <body>
 
 <div id="rgb-bg"></div>
+<div id="xmas-snow"></div>
 
 <header>
 <div class="hd">
-<!-- Clicar 3x na logo abre o Admin -->
 <div class="logo-top" onclick="checkAdminClicks()">
 <img src="logo-vida.jpg" alt="IEQ VIDA">
-<b>IEQ<br><span style="color:#7c3aed">VIDA</span></b>
+<b>IEQ<br><span>VIDA</span></b>
 </div>
-<div style="font-size:11px;font-weight:900"><a href="#sig" style="text-decoration:none;color:#1a1a2e;margin-right:10px">SIGNIFICADO</a><a href="#pix" style="text-decoration:none;color:#7c3aed">PIX</a></div>
+<div style="font-size:11px;font-weight:900;display:flex;gap:10px;">
+    <a href="#sig" style="text-decoration:none;color:#1a1a2e;">SIGNIFICADO</a>
+    <a href="#" onclick="abrirBiblia();return false;" style="text-decoration:none;color:#7c3aed;">BÍBLIA</a>
+    <a href="#pix" style="text-decoration:none;color:#1a1a2e;">PIX</a>
+</div>
 </div>
 </header>
 
@@ -163,7 +156,7 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 <h1>Igreja do Evangelho<br>Quadrangular <span>VIDA</span></h1>
 <p>Jesus Cristo é o mesmo ontem, hoje e eternamente - Hb 13:8</p>
 <div>
-<a href="https://wa.me/554699386470?text=Olá%20Igreja%20Quadrangular%20Vida%20🙏" class="cta">💬 WhatsApp (46) 99386470</a>
+<a href="https://wa.me/554699386470?text=Olá%20Pastor,%20tudo%20bem?%20vim%20pelo%20site%20da%20Igreja%20IQ%20Vida" class="cta">💬 WhatsApp (46) 99386470</a>
 <a href="https://maps.app.goo.gl/vN4Ze9XobDJ3cFmC7?g_st=aw" target="_blank" class="cta-maps">📍 Como Chegar</a>
 </div>
 </section>
@@ -171,10 +164,34 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 <section class="sec box" id="sig">
 <h2 class="title">O que significam as cores e símbolos</h2>
 <div class="grid">
-<div class="card"><div class="ic red">✝️</div><h3 style="color:#C1272D">Jesus Salva</h3><p><b>Vermelho - Cruz</b><br>Jesus morreu na cruz para nos dar perdão e salvação. Ele é nosso Salvador. Vida nova e perdão dos pecados.</p><small>📖 Romanos 10:9-10 | João 3:16</small></div>
-<div class="card"><div class="ic yel">🕊️</div><h3 style="color:#8a6500">Jesus Batiza com Espírito Santo</h3><p><b>Amarelo - Pomba</b><br>Jesus batiza com Espírito Santo e com fogo, nos dando poder, ousadia e dons espirituais para testemunhar.</p><small>📖 Atos 1:5 e 1:8 | Marcos 1:8</small></div>
-<div class="card"><div class="ic blu">🏆</div><h3 style="color:#1E88E5">Jesus Cura</h3><p><b>Azul - Cálice</b><br>Jesus levou nossas enfermidades e pelas suas feridas fomos sarados. Ele é o médico que cura hoje corpo e alma.</p><small>📖 Isaías 53:4-5 | Tiago 5:14-15 | Êxodo 15:26</small></div>
-<div class="card"><div class="ic pur">👑</div><h3 style="color:#5E2590">Jesus é o Rei que Voltará</h3><p><b>Roxo - Coroa</b><br>Jesus é Rei dos reis e voltará em glória e poder para buscar sua igreja. Maranata, ora vem Senhor Jesus!</p><small>📖 João 14:3 | Atos 1:11 | Apocalipse 22:12</small></div>
+<div class="card">
+    <div class="ic red">✝️</div>
+    <h3 style="color:#C1272D">Jesus Salva</h3>
+    <p><b>Vermelho - Cruz</b><br>Jesus morreu na cruz para nos dar perdão e salvação. Ele é nosso Salvador. Vida nova e perdão dos pecados.</p>
+    <small>📖 Romanos 10:9-10 | João 3:16</small>
+    <a class="bible-link" onclick="abrirBiblia('romanos/10')">📖 Ler na Bíblia</a>
+</div>
+<div class="card">
+    <div class="ic yel">🕊️</div>
+    <h3 style="color:#8a6500">Jesus Batiza com Espírito Santo</h3>
+    <p><b>Amarelo - Pomba</b><br>Jesus batiza com Espírito Santo e com fogo, nos dando poder, ousadia e dons espirituais para testemunhar.</p>
+    <small>📖 Atos 1:5 e 1:8 | Marcos 1:8</small>
+    <a class="bible-link" onclick="abrirBiblia('atos/1')">📖 Ler na Bíblia</a>
+</div>
+<div class="card">
+    <div class="ic blu">🏆</div>
+    <h3 style="color:#1E88E5">Jesus Cura</h3>
+    <p><b>Azul - Cálice</b><br>Jesus levou nossas enfermidades e pelas suas feridas fomos sarados. Ele é o médico que cura hoje corpo e alma.</p>
+    <small>📖 Isaías 53:4-5 | Tiago 5:14-15 | Êxodo 15:26</small>
+    <a class="bible-link" onclick="abrirBiblia('isaias/53')">📖 Ler na Bíblia</a>
+</div>
+<div class="card">
+    <div class="ic pur">👑</div>
+    <h3 style="color:#5E2590">Jesus é o Rei que Voltará</h3>
+    <p><b>Roxo - Coroa</b><br>Jesus é Rei dos reis e voltará em glória e poder para buscar sua igreja. Maranata, ora vem Senhor Jesus!</p>
+    <small>📖 João 14:3 | Atos 1:11 | Apocalipse 22:12</small>
+    <a class="bible-link" onclick="abrirBiblia('joao/14')">📖 Ler na Bíblia</a>
+</div>
 </div>
 </section>
 
@@ -184,7 +201,7 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 <h3>🙏 Dízimos e Ofertas - Contribuição</h3>
 <p style="font-size:12px;opacity:.9;margin-top:4px">Deus ama a quem dá com alegria - 2 Coríntios 9:7</p>
 <div class="key" onclick="navigator.clipboard.writeText('quadrangularvida30@gmail.com');alert('PIX copiado: quadrangularvida30@gmail.com')">quadrangularvida30@gmail.com<br><small style="font-weight:400;font-size:11px">Toque para copiar • Chave PIX E-mail</small></div><br>
-<a href="https://wa.me/554699386470?text=Enviei%20PIX%20para%20IEQ%20Vida%20🙏%20quadrangularvida30@gmail.com" style="background:white;color:#5b21b6;padding:11px 20px;border-radius:22px;font-weight:900;text-decoration:none;font-size:13px;display:inline-block">Enviar comprovante no WhatsApp</a>
+<a href="https://wa.me/554699386470?text=Olá%20Pastor,%20tudo%20bem?%20vim%20pelo%20site%20da%20Igreja%20IQ%20Vida" style="background:white;color:#5b21b6;padding:11px 20px;border-radius:22px;font-weight:900;text-decoration:none;font-size:13px;display:inline-block">Enviar comprovante no WhatsApp</a>
 </div>
 
 <div style="border-radius:18px;overflow:hidden;border:2px solid #e9e5ff;margin-bottom:22px">
@@ -213,12 +230,26 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
 
 <div class="float-group">
 <a href="https://maps.app.goo.gl/vN4Ze9XobDJ3cFmC7?g_st=aw" target="_blank" class="maps-float" title="Como Chegar">📍</a>
-<a href="https://wa.me/554699386470" target="_blank" class="wa-float" title="WhatsApp">💬</a>
+<a href="https://wa.me/554699386470?text=Olá%20Pastor,%20tudo%20bem?%20vim%20pelo%20site%20da%20Igreja%20IQ%20Vida" target="_blank" class="wa-float" title="WhatsApp">💬</a>
 </div>
 
-<button class="rgb-toggle" id="btnRgb" onclick="toggleRgb()">✨ Modo RGB</button>
+<div class="left-buttons">
+    <button class="rgb-toggle" id="btnRgb" onclick="toggleRgb()">✨ Modo RGB</button>
+    <button class="xmas-toggle" id="btnXmas" onclick="toggleXmas()">🎄 Modo Natal</button>
+</div>
 
-<!-- MODAL PRINCIPAL DA GALERIA -->
+<!-- MODAL DA BÍBLIA -->
+<div class="overlay" id="bibleModal" onclick="fecharBiblia(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header" style="background:#1a1033;">
+            <h3>📖 Bíblia Sagrada (NVI)</h3>
+            <button class="close-btn" onclick="fecharBiblia(event)">&times;</button>
+        </div>
+        <iframe id="bibleFrame" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+<!-- MODAL DA GALERIA -->
 <div class="overlay" id="meuModal" onclick="fecharModal(event)">
     <div class="modal" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -243,7 +274,7 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
     </div>
 </div>
 
-<!-- MODAL DO PAINEL ADMIN -->
+<!-- MODAL ADMIN -->
 <div class="overlay" id="adminModal" onclick="fecharAdmin(event)">
     <div class="modal" onclick="event.stopPropagation()">
         <div class="modal-header" style="background:#C1272D;">
@@ -253,24 +284,39 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
         <div class="modal-body">
             
             <div id="uploadAdminArea">
-                <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto</h4>
+                <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto (Máx 50MB)</h4>
                 <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImagem(this)">
-                <button onclick="document.getElementById('fileInput').click()" style="background:#7c3aed; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
+                <button onclick="document.getElementById('fileInput').click()" style="background:#7c3aed; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; margin-bottom: 15px;">
                     Escolher Imagem
                 </button>
-                <p id="statusUpload" style="font-size:12px; color:#7c3aed; margin-top:10px; font-weight:bold; word-break: break-word; line-height: 1.4;"></p>
+                <p id="statusUpload" style="font-size:12px; color:#7c3aed; font-weight:bold; word-break: break-word; line-height: 1.4; margin-bottom: 15px;"></p>
+
+                <h4 style="color:#5b21b6; margin-bottom:10px; border-top: 1px solid #ddd; padding-top: 15px;">Adicionar Vídeo do YouTube</h4>
+                <input type="text" id="linkYoutube" placeholder="Cole o link do YouTube aqui" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; margin-bottom:10px; font-size:14px;">
+                <button onclick="adicionarVideoYoutube()" style="background:#C1272D; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    Adicionar Vídeo
+                </button>
+                <p id="statusVideo" style="font-size:12px; color:#C1272D; font-weight:bold; word-break: break-word; line-height: 1.4; margin-top:10px;"></p>
+
+                <h4 style="color:#5b21b6; margin-bottom:10px; border-top: 1px solid #ddd; padding-top: 15px;">Adicionar Link Externo</h4>
+                <input type="text" id="linkExterno" placeholder="Cole o link aqui" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; margin-bottom:10px; font-size:14px;">
+                <button onclick="adicionarLinkExterno()" style="background:#1E88E5; color:white; border:0; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    Adicionar Link
+                </button>
+                <p id="statusLink" style="font-size:12px; color:#1E88E5; font-weight:bold; word-break: break-word; line-height: 1.4; margin-top:10px;"></p>
             </div>
 
-            <p style="font-size:13px; color:#666; margin-bottom:15px;">Selecione a foto que deseja apagar permanentemente.</p>
+            <p style="font-size:13px; color:#666; margin-bottom:15px; margin-top: 20px;">Selecione o item que deseja apagar permanentemente.</p>
             <div id="adminLista"></div>
         </div>
     </div>
 </div>
 
-<!-- VISUALIZADOR DE IMAGEM TELA CHEIA -->
-<div id="imageViewer" onclick="this.classList.remove('active')">
+<!-- VISUALIZADOR DE IMAGEM / VÍDEO -->
+<div id="imageViewer" onclick="this.classList.remove('active'); document.getElementById('youtubeFrame').src='';">
     <span class="close-viewer">&times;</span>
-    <img id="imageViewerSrc" src="" alt="Zoom">
+    <img id="imageViewerSrc" src="" alt="Zoom" style="display:none;">
+    <iframe id="youtubeFrame" src="" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
 </div>
 
 <!-- SUPABASE SDK -->
@@ -283,126 +329,187 @@ const SUPABASE_ANON_KEY = "sb_publishable_MjgtCScrBN-QLwGCzCOvvQ_OAiY9_r3";
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// --- SEGURANÇA E CRIPTOGRAFIA (SHA-256) ---
-async function hashSenha(senha) {
-    const msgBuffer = new TextEncoder().encode(senha);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return hashHex;
+// --- CONTROLE DA BÍBLIA ---
+function abrirBiblia(caminho = '') {
+    const modal = document.getElementById('bibleModal');
+    const frame = document.getElementById('bibleFrame');
+    // Usa o Bible.com com a versão NVI (129) em português
+    // Se passar um caminho (ex: 'romanos/10'), ele abre o capítulo direto.
+    const url = caminho ? `https://www.bible.com/pt/bible/129/${caminho}` : `https://www.bible.com/pt/bible/129`;
+    frame.src = url;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function fecharBiblia(event) {
+    if (event.target.id === 'bibleModal' || event.target.classList.contains('close-btn')) {
+        document.getElementById('bibleModal').classList.remove('active');
+        document.getElementById('bibleFrame').src = ''; // Para o áudio/vídeo se tiver
+        document.body.style.overflow = '';
+    }
+}
+
+// --- NEVE DE NATAL ---
+let snowInterval;
+function criarNeve() {
+    const container = document.getElementById('xmas-snow');
+    const icones = ['❄️', '🎄', '🎅', '🎁', '🌟'];
+    function soltarIcone() {
+        const el = document.createElement('div');
+        el.className = 'snowflake';
+        el.innerText = icones[Math.floor(Math.random() * icones.length)];
+        el.style.left = Math.random() * 90 + 'vw';
+        el.style.fontSize = (Math.random() * 15 + 20) + 'px';
+        el.style.animation = `fall ${Math.random() * 4 + 6}s linear forwards, rgbIcone 2s linear infinite`;
+        container.appendChild(el);
+        setTimeout(() => { el.remove(); }, 12000);
+    }
+    soltarIcone();
+    snowInterval = setInterval(soltarIcone, 5000);
 }
 
 // --- GALERIA PÚBLICA ---
 async function montarGaleria() {
     const galeria = document.getElementById('galeriaReal');
-    galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando fotos...</p>';
+    galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Carregando mídias...</p>';
 
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
-            headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            }
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
         });
-        
         if (!response.ok) throw new Error("Erro na API");
-        
         const data = await response.json();
         galeria.innerHTML = '';
 
         if (!data || data.length === 0) {
-            galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Nenhuma foto adicionada ainda.</p>';
+            galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; font-size: 13px;">Nenhuma mídia adicionada ainda.</p>';
             return;
         }
 
         data.forEach((item) => {
             const div = document.createElement('div');
-            div.innerHTML = `<img src="${item.url}" alt="Foto" onclick="abrirZoom('${item.url}')">`;
+            if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
+                const videoId = extrairIdYoutube(item.url);
+                if (videoId) {
+                    div.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Vídeo"><div class="video-icon">▶</div>`;
+                    div.onclick = () => abrirVideoYoutube(videoId);
+                }
+            } else if (!item.url.includes('supabase.co')) {
+                let logo = '🔗'; 
+                if (item.url.includes('facebook.com')) logo = '📘';
+                if (item.url.includes('instagram.com')) logo = '📸';
+                if (item.url.includes('drive.google.com')) logo = '📁';
+                div.innerHTML = `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#f8f7ff; color:#7c3aed;"><span style="font-size:40px;">${logo}</span></div>`;
+                div.onclick = () => window.open(item.url, '_blank');
+            } else {
+                div.innerHTML = `<img src="${item.url}" alt="Foto">`;
+                div.onclick = () => abrirZoom(item.url);
+            }
             galeria.appendChild(div);
         });
     } catch (error) {
         console.error("Erro ao carregar galeria:", error);
-        galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as fotos.</p>`;
+        galeria.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #C1272D; font-size: 13px;">Erro ao carregar as mídias.</p>`;
     }
 }
 
-// --- UPLOAD ---
+function extrairIdYoutube(url) {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/))([A-Za-z0-9_-]{11})/);
+    return match ? match[1] : null;
+}
+
+function abrirVideoYoutube(videoId) {
+    const viewer = document.getElementById('imageViewer');
+    const img = document.getElementById('imageViewerSrc');
+    const iframe = document.getElementById('youtubeFrame');
+    img.style.display = 'none';
+    iframe.style.display = 'block';
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    viewer.classList.add('active');
+}
+
 async function uploadImagem(input) {
     const file = input.files[0];
     if (!file) return;
-
     const status = document.getElementById('statusUpload');
-    status.innerText = "Enviando para a nuvem...";
-    status.style.color = "#7c3aed";
-
-    if (file.size > 50 * 1024 * 1024) {
-        status.innerText = "Erro: A imagem é maior que 50MB.";
-        status.style.color = "#C1272D";
-        return;
-    }
+    status.innerText = "Enviando para a nuvem..."; status.style.color = "#7c3aed";
+    if (file.size > 50 * 1024 * 1024) { status.innerText = "Erro: A imagem é maior que 50MB."; status.style.color = "#C1272D"; return; }
 
     try {
         const nomeArquivo = "foto_" + Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "");
-
-        const { data: uploadData, error: uploadError } = await _supabase.storage
-            .from('galeria')
-            .upload(nomeArquivo, file, { cacheControl: '3600', upsert: false, contentType: file.type });
-
+        const { data: uploadData, error: uploadError } = await _supabase.storage.from('galeria').upload(nomeArquivo, file, { cacheControl: '3600', upsert: false, contentType: file.type });
         if (uploadError) throw new Error(uploadError.message);
-
         const { data: urlData } = _supabase.storage.from('galeria').getPublicUrl(nomeArquivo);
 
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria`, {
             method: 'POST',
-            headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=minimal'
-            },
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
             body: JSON.stringify({ url: urlData.publicUrl })
         });
-
         if (!response.ok) throw new Error("Erro ao salvar no banco");
 
-        status.innerText = "Foto enviada com sucesso!";
-        status.style.color = "#25D366";
-        input.value = "";
-        montarGaleria();
-        abrirAdmin(); 
-
+        status.innerText = "Foto enviada com sucesso!"; status.style.color = "#25D366";
+        input.value = ""; montarGaleria(); abrirAdmin(); 
     } catch (error) {
-        status.innerText = "Erro: " + error.message;
-        status.style.color = "#C1272D";
+        status.innerText = "Erro: " + error.message; status.style.color = "#C1272D";
     }
 }
 
-// --- CONTROLE DO MODAL ---
+async function adicionarVideoYoutube() {
+    const link = document.getElementById('linkYoutube').value.trim();
+    const status = document.getElementById('statusVideo');
+    if (!link) { status.innerText = "Por favor, cole um link do YouTube."; return; }
+    const videoId = extrairIdYoutube(link);
+    if (!videoId) { status.innerText = "Link inválido. Use um link do YouTube."; return; }
+
+    status.innerText = "Salvando..."; status.style.color = "#7c3aed";
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+            body: JSON.stringify({ url: link })
+        });
+        if (!response.ok) throw new Error("Erro ao salvar no banco");
+        status.innerText = "Vídeo adicionado com sucesso!"; status.style.color = "#25D366";
+        document.getElementById('linkYoutube').value = ""; montarGaleria(); abrirAdmin();
+    } catch (error) {
+        status.innerText = "Erro: " + error.message; status.style.color = "#C1272D";
+    }
+}
+
+async function adicionarLinkExterno() {
+    const link = document.getElementById('linkExterno').value.trim();
+    const status = document.getElementById('statusLink');
+    if (!link) { status.innerText = "Por favor, cole um link."; return; }
+
+    status.innerText = "Salvando..."; status.style.color = "#1E88E5";
+    try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria`, {
+            method: 'POST',
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+            body: JSON.stringify({ url: link })
+        });
+        if (!response.ok) throw new Error("Erro ao salvar no banco");
+        status.innerText = "Link adicionado com sucesso!"; status.style.color = "#25D366";
+        document.getElementById('linkExterno').value = ""; montarGaleria(); abrirAdmin();
+    } catch (error) {
+        status.innerText = "Erro: " + error.message; status.style.color = "#C1272D";
+    }
+}
+
 function abrirModal(tipo) {
     const overlay = document.getElementById('meuModal');
     const title = document.getElementById('modalTitle');
     const divGaleria = document.getElementById('conteudoGaleria');
     const divOracao = document.getElementById('conteudoOracao');
-
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    if (tipo === 'galeria') {
-        title.innerText = "📸 Nossa Galeria";
-        divGaleria.style.display = 'block';
-        divOracao.style.display = 'none';
-        montarGaleria();
-    } else if (tipo === 'oracao') {
-        title.innerText = "💌 Recado / Oração";
-        divGaleria.style.display = 'none';
-        divOracao.style.display = 'block';
-    }
+    overlay.classList.add('active'); document.body.style.overflow = 'hidden';
+    if (tipo === 'galeria') { title.innerText = "📸 Nossa Galeria"; divGaleria.style.display = 'block'; divOracao.style.display = 'none'; montarGaleria(); } 
+    else if (tipo === 'oracao') { title.innerText = "💌 Recado / Oração"; divGaleria.style.display = 'none'; divOracao.style.display = 'block'; }
 }
 
 function fecharModal(event) {
     if (event.target.id === 'meuModal' || event.target.classList.contains('close-btn')) {
-        document.getElementById('meuModal').classList.remove('active');
-        document.body.style.overflow = '';
+        document.getElementById('meuModal').classList.remove('active'); document.body.style.overflow = '';
     }
 }
 
@@ -410,13 +517,11 @@ function enviarOracao() {
     const nome = document.getElementById('n').value;
     const pedido = document.getElementById('m').value;
     if(!nome || !pedido) { alert("Por favor, preencha seu nome e o pedido."); return; }
-    window.open(`https://wa.me/554699386470?text=Olá%20IEQ%20Vida%20🙏%0ANome:%20${encodeURIComponent(nome)}%0APedido:%20${encodeURIComponent(pedido)}`, '_blank');
-    document.getElementById('n').value = '';
-    document.getElementById('m').value = '';
+    window.open(`https://wa.me/554699386470?text=Olá%20Pastor,%20tudo%20bem?%20vim%20pelo%20site%20da%20Igreja%20IQ%20Vida%0A%0ANome:%20${encodeURIComponent(nome)}%0APedido:%20${encodeURIComponent(pedido)}`, '_blank');
+    document.getElementById('n').value = ''; document.getElementById('m').value = '';
     fecharModal({target: {id: 'meuModal'}});
 }
 
-// --- MODO RGB ---
 function toggleRgb() {
     document.body.classList.toggle('rgb-mode');
     const btn = document.getElementById('btnRgb');
@@ -424,93 +529,91 @@ function toggleRgb() {
     btn.innerHTML = document.body.classList.contains('rgb-mode') ? '🛑 Desligar RGB' : '✨ Modo RGB';
 }
 
-// --- VISUALIZADOR DE IMAGEM (ZOOM) ---
-function abrirZoom(url) {
-    document.getElementById('imageViewerSrc').src = url;
-    document.getElementById('imageViewer').classList.add('active');
+function toggleXmas() {
+    document.body.classList.toggle('xmas-mode');
+    const btn = document.getElementById('btnXmas');
+    btn.classList.toggle('active');
+    
+    if (document.body.classList.contains('xmas-mode')) {
+        btn.innerHTML = '🛑 Desligar Natal';
+        criarNeve();
+    } else {
+        btn.innerHTML = '🎄 Modo Natal';
+        clearInterval(snowInterval);
+        document.getElementById('xmas-snow').innerHTML = '';
+    }
 }
 
-// --- SISTEMA DE ADMIN (CLIQUE 3X NA LOGO) ---
+function abrirZoom(url) {
+    const viewer = document.getElementById('imageViewer');
+    const img = document.getElementById('imageViewerSrc');
+    const iframe = document.getElementById('youtubeFrame');
+    iframe.style.display = 'none'; iframe.src = '';
+    img.style.display = 'block'; img.src = url;
+    viewer.classList.add('active');
+}
+
+// --- SISTEMA DE ADMIN ---
 let adminClicks = 0;
 let adminTimer;
 
-async function checkAdminClicks() {
+function checkAdminClicks() {
     adminClicks++;
     clearTimeout(adminTimer);
-    
     adminTimer = setTimeout(() => { adminClicks = 0; }, 800);
-
     if (adminClicks === 3) {
         adminClicks = 0;
-        
         const senhaDigitada = prompt("Acesso Restrito. Digite a senha de administrador:");
-        if (senhaDigitada === null) return; // Cancelou o prompt
-
-        // MÁGICA AQUI: Compara direto com o texto, ignorando o Hash que estava dando erro.
-        if (senhaDigitada === "@Qi.Vida@") { 
-            abrirAdmin();
-        } else {
-            alert("Senha incorreta.");
-        }
+        if (senhaDigitada === null) return; 
+        if (senhaDigitada === "@Qi.Vida@") { abrirAdmin(); } else { alert("Senha incorreta."); }
     }
 }
 
 async function abrirAdmin() {
     document.getElementById('adminModal').classList.add('active');
     document.getElementById('uploadAdminArea').style.display = 'block';
-    
     const lista = document.getElementById('adminLista');
-    lista.innerHTML = '<p>Carregando fotos...</p>';
+    lista.innerHTML = '<p>Carregando mídias...</p>';
 
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/galeria?select=*&order=created_at.desc`, {
             headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
         });
-        
         const data = await response.json();
         lista.innerHTML = '';
-
-        if (data.length === 0) {
-            lista.innerHTML = '<p>Nenhuma foto no banco.</p>';
-            return;
-        }
+        if (data.length === 0) { lista.innerHTML = '<p>Nenhuma mídia no banco.</p>'; return; }
 
         data.forEach(item => {
             const div = document.createElement('div');
             div.className = 'admin-item';
-            div.innerHTML = `
-                <img src="${item.url}" alt="thumb">
-                <button class="btn-delete" onclick="apagarFoto(${item.id}, '${item.url}')">Apagar</button>
-            `;
+            let thumbSrc = item.url;
+            if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
+                const vid = extrairIdYoutube(item.url);
+                if (vid) thumbSrc = `https://img.youtube.com/vi/${vid}/default.jpg`;
+            } else if (!item.url.includes('supabase.co')) {
+                thumbSrc = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect width="60" height="60" fill="%23e9e5ff"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="24">🔗</text></svg>';
+            }
+            div.innerHTML = `<img src="${thumbSrc}" alt="thumb" style="background:#fff;"><button class="btn-delete" onclick="apagarMidia(${item.id}, '${item.url}')">Apagar</button>`;
             lista.appendChild(div);
         });
-
-    } catch (error) {
-        lista.innerHTML = '<p style="color:red">Erro ao carregar dados do banco.</p>';
-    }
+    } catch (error) { lista.innerHTML = '<p style="color:red">Erro ao carregar dados do banco.</p>'; }
 }
 
-async function apagarFoto(id, url) {
-    if (!confirm("Tem certeza que deseja apagar esta foto? Ela sumirá do site para todos.")) return;
-
+async function apagarMidia(id, url) {
+    if (!confirm("Tem certeza que deseja apagar esta mídia? Ela sumirá do site para todos.")) return;
     try {
         const responseDb = await fetch(`${SUPABASE_URL}/rest/v1/galeria?id=eq.${id}`, {
             method: 'DELETE',
             headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
         });
-
         if (!responseDb.ok) throw new Error("Erro ao deletar do banco.");
-
-        const nomeArquivo = url.split('/').pop(); 
-        await _supabase.storage.from('galeria').remove([nomeArquivo]);
-
-        alert("Foto apagada com sucesso!");
-        abrirAdmin(); 
-        montarGaleria(); 
-
-    } catch (error) {
-        alert("Erro ao apagar: " + error.message);
-    }
+        if (url.includes('supabase.co')) {
+            const nomeArquivo = url.split('/').pop(); 
+            await _supabase.storage.from('galeria').remove([nomeArquivo]);
+        }
+        alert("Mídia apagada com sucesso!");
+        abrirAdmin(); montarGaleria(); 
+    } catch (error) { alert("Erro ao apagar: " + error.message); }
 }
 
 function fecharAdmin(event) {
