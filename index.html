@@ -64,7 +64,7 @@ header{background:white;position:fixed;top:0;left:0;right:0;z-index:99;padding:8
     width: 360px; 
     height: 360px; 
     max-width: 88vw;
-    max-height: 88vw; /* Mantém quadrado no celular */
+    max-height: 88vw; 
     padding: 16px; 
     border-radius: 22px; 
     box-shadow: 0 14px 40px rgba(0,0,0,.4); 
@@ -138,7 +138,6 @@ footer a.dev-link{color:#facc15;font-weight:900;text-decoration:none;transition:
 .admin-item { display: flex; justify-content: space-between; align-items: center; background: #f8f7ff; border: 1px solid #e9e5ff; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
 .admin-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
 .btn-delete { background: #C1272D; color: white; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-.btn-pass { background: #facc15; color: #1a1a2e; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
 #uploadAdminArea { display: none; background:#f8f7ff; border:2px dashed #7c3aed; border-radius:14px; padding:20px; text-align:center; margin-bottom:20px; }
 </style>
 </head>
@@ -253,8 +252,6 @@ Desenvolvido por <a href="https://julianoodom12-creator.github.io/domwebsite-loj
         </div>
         <div class="modal-body">
             
-            <button class="btn-pass" onclick="trocarSenha()">🔐 Trocar Senha</button>
-
             <div id="uploadAdminArea">
                 <h4 style="color:#5b21b6; margin-bottom:10px;">Adicionar Nova Foto</h4>
                 <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImagem(this)">
@@ -293,33 +290,6 @@ async function hashSenha(senha) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
-}
-
-// HASH PADRÃO PARA A SENHA "admin"
-const HASH_PADRAO = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
-
-function getSenhaHashAtual() {
-    return localStorage.getItem('senha_admin_hash') || HASH_PADRAO;
-}
-
-async function trocarSenha() {
-    const atual = prompt("Digite a senha ATUAL:");
-    if (atual === null) return; 
-    
-    const hashAtualDigitada = await hashSenha(atual);
-
-    if (hashAtualDigitada !== getSenhaHashAtual()) {
-        alert("Senha atual incorreta!");
-        return;
-    }
-
-    const nova = prompt("Digite a NOVA senha:");
-    if (nova === null || nova.trim() === "") return;
-
-    const novoHash = await hashSenha(nova);
-    localStorage.setItem('senha_admin_hash', novoHash);
-    
-    alert("Senha alterada com sucesso!");
 }
 
 // --- GALERIA PÚBLICA ---
@@ -476,9 +446,8 @@ async function checkAdminClicks() {
         const senhaDigitada = prompt("Acesso Restrito. Digite a senha de administrador:");
         if (senhaDigitada === null) return; // Cancelou o prompt
 
-        const hashDigitado = await hashSenha(senhaDigitada);
-        
-        if (hashDigitado === getSenhaHashAtual()) { 
+        // MÁGICA AQUI: Compara direto com o texto, ignorando o Hash que estava dando erro.
+        if (senhaDigitada === "@Qi.Vida@") { 
             abrirAdmin();
         } else {
             alert("Senha incorreta.");
